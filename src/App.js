@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Tmdb from "./Tmdb.js";
-import MovieRow from "./components/MovieRow/MovieRow";
-import FeaturedMovie from "./components/FeaturedMovie/FeaturedMovie";
+import MovieRow from "./components/MovieRow";
+import FeaturedMovie from "./components/FeaturedMovie";
 import Header from "./components/Header";
 
 export default () => {
@@ -30,19 +30,19 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    const scrollListner = () => {
+    const scrollListener = () => {
       if (window.scrollY > 12) {
         setBlackHeader(true);
       } else {
         setBlackHeader(false);
       }
     };
-    window.addEventListener("scroll", scrollListner);
+    window.addEventListener("scroll", scrollListener);
 
     return () => {
-      window.removeEventListener("scroll", scrollListner);
+      window.removeEventListener("scroll", scrollListener);
     };
-  });
+  }, []);
 
   return (
     <div className="page">
@@ -60,6 +60,14 @@ export default () => {
         <p> Direitos de imagem para Netflix</p>
         <p>Dados pegos do site Themoviedb.org</p>
       </footer>
+      {movieList.length <= 0 && (
+        <div classNAme="loading">
+          <img
+            src="https://media.filmelier.com/noticias/br/2020/03/Netflix_LoadTime.gif"
+            alt="Carregando"
+          />
+        </div>
+      )}
     </div>
   );
 };
